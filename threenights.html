@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FNAF Engine Prototype</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <div id="start-screen">
+        <h1>3 NIGHTS IN 1003</h1><br>
+
+        <div id = "synopsis"> 
+            <p>Welcome new hire</p>
+            <p>You are working the night shift as the security guard for 1003. 
+                We have a couple of...odd students who are still here for some reason. 
+                Nothing weird will happen probably. Just keep an eye on them though please. </p>
+            <div id = "cute_ahh_cat"> 
+                <p>  ∧ ,,, ∧ </p>
+                <p> ( ̳• · • ̳)</p>
+                <p> / づ♡ I love you</p><br>
+            </div>
+        </div>
+
+        <div id = "instructions">
+            <h2>Instructions</h2>
+                <p>Survive the night.</p>
+                <p>Use the cameras to locate students. Figure out their movement.</p>
+                <p>You should probably have an idea of where in relation to you they are (since you go to school here). Use the map if you need help.</p>
+                <p>Don't let them in 1003; lock the door when they get close.</p>
+                <p>Conserve your power.<p><br>
+
+                <p>Then do it again 2 more times. There's 3 nights total, getting a leeeel beet harder each time.</p>
+                <p>1. Wesley is camerashy. Take from that what you will.</p>
+                <p>2. Sam is kinda fast. Remember to check your door.</p>
+                <p>3. If you see the elevator open, panic. Chris is coming.</p>
+                <br>
+            <h2>Controls</h2>
+                <p> Buttons are in the bottom left and right corners </p>
+                <p> Click "Door: UNLOCKED/LOCKED" to lock/unlock door</p>
+                <p> Click "Blinds: DOWN/UP" to reveal the characters behind the door</p>
+                <p> Click "Camera System" to open/close the camera system</p>
+                <p> Click "Camera Back/Forward" to cycle through cameras</p><br>
+        </div>
+        
+        <button onclick="gameEngine.init()">(C)lock In</button>
+    </div>
+
+    <div id="game-screen">
+        
+        <div id="stats-display">
+            Night: <span id="night">1</span><br>
+            Power: <span id="power-val">100</span>%<br>
+            Usage: <span id="usage-val">1</span> bar<br>
+            Time: <span id="time-val">12:00 AM</span><br>
+            Room: <span id="room">classroom</span>
+        </div>
+
+        <div id="main-view">
+            <div id="view-info">
+                <h1 id="room-name">classroom</h1>
+                <p id="room-desc">You are safe... for now.</p>
+                <p id="animatronic-status" style="color: var(--danger-color)"></p>
+            </div>
+
+            <div id="blackout"> 
+            </div>
+
+            <!-- Map image will be positioned in the bottom-right of #main-view -->
+            <img id="map" src="map.png" alt="map" style="display:none;" />
+
+            <!--Muahahaha sound effects (didn't add yet)-->
+            <audio id="snd-move" src="" preload="auto"></audio>
+
+            <!-- CHRIS move video (muted so it can autoplay when triggered) -->
+            <video id="chris-video" src="chrismoving.mp4" muted preload="auto" style="display:none; position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:600;"></video>
+            <video id="jumpscare" src="" muted preload="auto" style="display:none; position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:600;"></video>
+        </div>
+
+
+        <div class="ui-layer">
+            <div class="control-group">
+                <button id="btn-door" onclick="gameEngine.toggleDoor()">Door: UNLOCKED</button>
+                <button id="btn-blinds" onclick="gameEngine.toggleBlinds()">Blinds: DOWN</button>
+            </div>
+            
+            <div class="control-group">
+                <button id="btn-camera" onclick="gameEngine.toggleCamera()">Camera System</button>
+                <div id="cam-controls" style="display:none; gap: 5px;">
+                    <button onclick="gameEngine.switchCamera('backward')">◀ Camera Back</button>
+                    <button onclick="gameEngine.switchCamera('forward')">Camera Forward ▶</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-over-screen">
+        <h1 style="font-size: 4rem;">GAME OVER</h1>
+        <p id="death-reason"></p>
+        <button onclick="location.reload()">TRY AGAIN</button> <!--reload the tab-->
+    </div>
+
+    <div id="win-screen">
+        <h1 style="font-size: 4rem;">SHIFT END</h1>
+        <p id="win-msg"></p>
+        <button id="nextbutt" onclick="gameEngine.loadNextLevel()">Next Night</button> 
+    </div>
+
+    <script src="scripts.js"></script>
+
+</body>
+</html>
